@@ -3,6 +3,7 @@ import { CustomersService } from '../services/customers.service';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Customer } from '../model/customer.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-customers',
@@ -13,7 +14,7 @@ export class CustomersComponent {
   customers!: Observable<Array<Customer>>
   errorMessage!: string;
   searchFormGroup!: FormGroup;
-  constructor(private customerservice: CustomersService, private fb: FormBuilder) {
+  constructor(private customerservice: CustomersService, private fb: FormBuilder, private router: Router) {
 
   }
   ngOnInit(): void {
@@ -50,6 +51,9 @@ export class CustomersComponent {
       }
     })
 
+  }
+  handleCustomeraccount(customer: Customer) {
+    this.router.navigateByUrl("/customer-accounts/" + customer.id, { state: customer })
   }
 
 }
